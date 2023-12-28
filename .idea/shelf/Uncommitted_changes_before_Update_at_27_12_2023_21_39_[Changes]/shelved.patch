@@ -1,0 +1,336 @@
+Index: home_page_tests.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import unittest\r\nimport Driver_setup\r\nfrom selenium import webdriver\r\nfrom webdriver_manager.chrome import ChromeDriverManager\r\nfrom selenium.webdriver.chrome.service import Service as ChromeService\r\nfrom selenium.webdriver.chrome.options import Options as ChromeOptions\r\nfrom selenium.webdriver.support import expected_conditions as EC\r\nfrom selenium.webdriver.support.wait import WebDriverWait\r\nfrom selenium.webdriver.common.by import By\r\n\r\ndriver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))\r\nDriver_setup.mydriver(\"https://qa.trado.ai\")\r\n\r\nclass Unittest(unittest.TestCase):\r\n\r\n\r\n\r\n    def test_logo(self):\r\n        \"\"\"\r\n        Testing app's logo's functionality.\r\n        :return:\r\n        \"\"\"\r\n        click_logo = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, \"//*[@id='root']/div/div[2]/header/div/div/div[2]/a/div/a/img\")))\r\n        click_logo.click()\r\n\r\n    def test_search_engine(self):\r\n        \"\"\"\r\n        Testing apps search engine.\r\n        :return:\r\n        \"\"\"\r\n        click_search_engine = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, \"//*[@id='root']/div/div[2]/header/div/div/div[2]/div\")))\r\n        click_search_logo = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, \"//*[@id='root']/div/div[2]/header/div/div/div[2]/div/div[2]\")))\r\n        click_search_engine.click()\r\n        click_search_engine.send_keys(\"sldkjfm\")\r\n        click_search_logo.click()\r\n\r\n    def test_go_to_personal_area(self):\r\n        \"\"\"\r\n        Testing navigation to personal area.\r\n        :return:\r\n        \"\"\"\r\n        go_to_pa = WebDriverWait(driver, 10).until((EC.element_to_be_clickable((By.XPATH, \"//*[@id='root']/div/div[2]/header/div/div/div[1]/a\"))))\r\n        go_to_pa.click()\r\n\r\n    def test_go_to_item_categories(self):\r\n        \"\"\"\r\n        Testing navigation to item categories.\r\n        In order to navigate to the item categories page you need to press an item and not a button to lead you there.\r\n        :return:\r\n        \"\"\"\r\n        item_categories = ['//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[1]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[2]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[3]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[4]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[5]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[6]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[7]/div/a/div',\r\n                           '//*[@id=\"root\"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[8]/div/a/div']\r\n\r\n        for item in item_categories:\r\n            click_items = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, item)))\r\n            click_items.click()\r\n\r\n    def test_go_to_item_upload(self):\r\n        \"\"\"\r\n        Testing navigation to item upload\r\n        :return:\r\n        \"\"\"\r\n        go_to_item_upload = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id=\"root\"]/div/div[2]/header/div/div/div[1]/button')))\r\n        go_to_item_upload.click()\r\n\r\n    def test_switch_lang(self):\r\n        \"\"\"\r\n        Testing switching language feature\r\n        :return:\r\n        \"\"\"\r\n        switch_lang = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id=\"root\"]/div/div[1]')))\r\n        switch_lang.click()\r\n\r\n    def test_go_to_accessibility(self):\r\n        \"\"\"\r\n        testing navigation to accessibility page\r\n        :return:\r\n        \"\"\"\r\n        go_to_accessibility = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id=\"enable-toolbar-trigger-svg\"]/circle[1]')))\r\n        go_to_accessibility.click()\r\n\r\n    def test_footer(self):\r\n        \"\"\"\r\n        Testing navigation through footer links\r\n        :return:\r\n        \"\"\"\r\n        footer_links = ['//*[@id=\"root\"]/div/div[2]/div[3]/div/div[1]/a[1]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[1]/a[2]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[1]/a[3]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[1]/a[4]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[2]/a[1]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[2]/a[2]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[2]/a[3]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[2]/a[4]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[5]/div/a[1]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[5]/div/a[2]',\r\n                        '//*[@id=\"root\"]/div/div[2]/div[3]/div/div[5]/div/a[3]'\r\n                        ]\r\n\r\n        for link in footer_links:\r\n            footer_click = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, link)))\r\n            footer_click.click()\r\n\r\n    def test_logout(self):\r\n        \"\"\"\r\n        Testing Logout functionality\r\n        :return:\r\n        \"\"\"\r\n        logout_btn = WebDriverWait(driver, 10).until(\r\n            EC.element_to_be_clickable((By.XPATH, '//*[@id=\"root\"]/div/div[2]/header/div/div/a/span')))\r\n        logout_btn.click()\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/home_page_tests.py b/home_page_tests.py
+--- a/home_page_tests.py	(revision bc273bee84925d5f1b069cd8ccc3fbbb9f4515db)
++++ b/home_page_tests.py	(date 1703704725419)
+@@ -1,48 +1,53 @@
++import time
+ import unittest
+-import Driver_setup
+ from selenium import webdriver
++from log_in import log_in_dun
+ from webdriver_manager.chrome import ChromeDriverManager
+ from selenium.webdriver.chrome.service import Service as ChromeService
+ from selenium.webdriver.chrome.options import Options as ChromeOptions
+ from selenium.webdriver.support import expected_conditions as EC
+ from selenium.webdriver.support.wait import WebDriverWait
+ from selenium.webdriver.common.by import By
++from Driver_setup import driver_set_up
+ 
+-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+-Driver_setup.mydriver("https://qa.trado.ai")
++class Testcase(unittest.TestCase):
+ 
+-class Unittest(unittest.TestCase):
++    def setUp(self):
++        self.driver = driver_set_up()
++        self.driver.get('http://qa.trado.ai/')
++        log_in_dun(driver=self.driver)
+ 
+ 
+ 
+-    def test_logo(self):
++    def test1_logo(self):
++
+         """
+         Testing app's logo's functionality.
+         :return:
+         """
+-        click_logo = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[2]/a/div/a/img")))
++        click_logo = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[2]/a/div/a/img")))
+         click_logo.click()
+ 
+-    def test_search_engine(self):
++    def test2_search_engine(self):
+         """
+         Testing apps search engine.
+         :return:
+         """
+-        click_search_engine = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[2]/div")))
+-        click_search_logo = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[2]/div/div[2]")))
+-        click_search_engine.click()
+-        click_search_engine.send_keys("sldkjfm")
+-        click_search_logo.click()
++        print("vlad")
++        click_search_engine = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div[2]/header/div/div/div[2]/div/span/input'))).send_keys('sldkjfm')
++        time.sleep(1)
++        click_search_logo = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[2]/div/div[2]/img"))).click()
+ 
+-    def test_go_to_personal_area(self):
++
++    def test3_go_to_personal_area(self):
+         """
+         Testing navigation to personal area.
+         :return:
+         """
+-        go_to_pa = WebDriverWait(driver, 10).until((EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[1]/a"))))
++        go_to_pa = WebDriverWait(self.driver, 10).until((EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div[2]/header/div/div/div[1]/a"))))
+         go_to_pa.click()
+ 
+-    def test_go_to_item_categories(self):
++    def test4_go_to_item_categories(self):
+         """
+         Testing navigation to item categories.
+         In order to navigate to the item categories page you need to press an item and not a button to lead you there.
+@@ -58,34 +63,34 @@
+                            '//*[@id="root"]/div/div[2]/div[2]/div/div/div/div/div[1]/div[2]/ul/li[8]/div/a/div']
+ 
+         for item in item_categories:
+-            click_items = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, item)))
++            click_items = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, item)))
+             click_items.click()
+ 
+-    def test_go_to_item_upload(self):
++    def test5_go_to_item_upload(self):
+         """
+         Testing navigation to item upload
+         :return:
+         """
+-        go_to_item_upload = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[2]/header/div/div/div[1]/button')))
++        go_to_item_upload = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[2]/header/div/div/div[1]/button')))
+         go_to_item_upload.click()
+ 
+-    def test_switch_lang(self):
++    def test6_switch_lang(self):
+         """
+         Testing switching language feature
+         :return:
+         """
+-        switch_lang = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[1]')))
++        switch_lang = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[1]')))
+         switch_lang.click()
+ 
+-    def test_go_to_accessibility(self):
++    def test7_go_to_accessibility(self):
+         """
+         testing navigation to accessibility page
+         :return:
+         """
+-        go_to_accessibility = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="enable-toolbar-trigger-svg"]/circle[1]')))
++        go_to_accessibility = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="enable-toolbar-trigger-svg"]/circle[1]')))
+         go_to_accessibility.click()
+ 
+-    def test_footer(self):
++    def test8_footer(self):
+         """
+         Testing navigation through footer links
+         :return:
+@@ -104,15 +109,17 @@
+                         ]
+ 
+         for link in footer_links:
+-            footer_click = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, link)))
++            footer_click = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, link)))
+             footer_click.click()
+ 
+-    def test_logout(self):
++    def test9_logout(self):
+         """
+         Testing Logout functionality
+         :return:
+         """
+-        logout_btn = WebDriverWait(driver, 10).until(
++        logout_btn = WebDriverWait(self.driver, 10).until(
+             EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div[2]/header/div/div/a/span')))
+         logout_btn.click()
+ 
++    def tearDown(self):
++        self.driver.close()
+Index: Driver_set_up_&_Log_in.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Driver_set_up_&_Log_in.py b/Driver_setup.py
+rename from Driver_set_up_&_Log_in.py
+rename to Driver_setup.py
+--- a/Driver_set_up_&_Log_in.py	(revision bc273bee84925d5f1b069cd8ccc3fbbb9f4515db)
++++ b/Driver_setup.py	(date 1703704469125)
+@@ -1,61 +1,16 @@
+-import time
+ from selenium import webdriver
+ from webdriver_manager.chrome import ChromeDriverManager
+ from selenium.webdriver.chrome.service import Service as ChromeService
+ from selenium.webdriver.chrome.options import Options as ChromeOptions
+-from selenium.webdriver.support import expected_conditions as EC
+-from selenium.webdriver.support.wait import WebDriverWait
+-from selenium.webdriver.common.by import By
+-import mongoScrape
+-from pa import password, db_name, user_name
+-from mongoScrape import encoded_password
+-# setUp the driver
+-chrome_options = ChromeOptions()
+-chrome_options.add_argument('--ignore-ssl-errors=yes')
+-chrome_options.add_argument('--ignore-certificate-errors')
+-chrome_options.add_argument('disable_extensions')
+-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+-driver.get('http://qa.trado.ai/')
+-driver.maximize_window()
+-
+-def log_in():
+-    #locate and click on register login
+-    div_element_login_register = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH , '//*[@id="root"]/div/div[2]/div/section/nav/div/div[2]/a')))
+-    div_element_login_register.click()
++
++def driver_set_up():
++    chrome_options = ChromeOptions()
++    chrome_options.add_experimental_option('detach', True)
++    chrome_options.add_argument('disable_extensions')
++    chrome_options.add_argument("--start-maximized")
++    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
++    return driver
+ 
+ 
+-    # phone to be used
+-    phone = '00123456'
+-
+-    # locate phone field and send keys
+-    phone_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form-control'))).send_keys(phone)
+-
+-    # click submit to move to enter code
+-    submit_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form_submitBtn'))).click()
+-
+-    time.sleep(5)
+-    phone = '00123456'
+-    phone_to_use = f'972{phone}'
+-    # handle the code aquiring
+-    client = mongoScrape.create_mongo_connection(user_name, encoded_password, db_name)
+-    db = mongoScrape.create_mongo_db(client, db_name)
+-    code = mongoScrape.get_loginCode(db, '97200123456')
+-    print(f'login code: {code}')
+-
+-    # Wait for the modal to be visible
+-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'modal_modal')))
+-
+-    # Interact with each input element
+-
+-    input_class = 'input_0'
+-    input_element = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="root"]/div/div[4]/div/div/div/div/form/div[1]/div[1]/span/input')))
+-    # Debugging: Check if element is visible and enabled
+-    print(f"Element {input_class} is displayed: {input_element.is_displayed()}")
+-    print(f"Element {input_class} is enabled: {input_element.is_enabled()}")
+-    input_element.send_keys(code)
+-
+-
+-    submit_btn2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form_submitBtn'))).click()
+ 
+ 
+-log_in()
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1703498378814)
++++ b/.idea/vcs.xml	(date 1703498378814)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.11 (Trado new)\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.11 (Trado new)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision bc273bee84925d5f1b069cd8ccc3fbbb9f4515db)
++++ b/.idea/misc.xml	(date 1703498378794)
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.11 (Trado new)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (Trado new)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: log_in.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/log_in.py b/log_in.py
+new file mode 100644
+--- /dev/null	(date 1703705472594)
++++ b/log_in.py	(date 1703705472594)
+@@ -0,0 +1,47 @@
++import time
++from selenium import webdriver
++from webdriver_manager.chrome import ChromeDriverManager
++from selenium.webdriver.chrome.service import Service as ChromeService
++from selenium.webdriver.chrome.options import Options as ChromeOptions
++from selenium.webdriver.support import expected_conditions as EC
++from selenium.webdriver.support.wait import WebDriverWait
++from selenium.webdriver.common.by import By
++import mongoScrape
++from pa import password, db_name, user_name
++from mongoScrape import encoded_password
++# setUp the driver
++from Driver_setup import driver_set_up
++
++def log_in_dun(driver):
++    #locate and click on register login
++    div_element_login_register = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH , '//*[@id="root"]/div/div[2]/div/section/nav/div/div[2]/a')))
++    div_element_login_register.click()
++
++
++    # phone to be used
++    phone = '00123456'
++
++    # locate phone field and send keys
++    phone_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form-control'))).send_keys(phone)
++
++    # click submit to move to enter code
++    submit_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form_submitBtn'))).click()
++
++    time.sleep(5)
++    # handle the code aquiring
++    client = mongoScrape.create_mongo_connection(user_name, encoded_password, db_name)
++    db = mongoScrape.create_mongo_db(client, db_name)
++    code = mongoScrape.get_loginCode(db, '97200123456')
++    print(f'login code: {code}')
++
++    # Wait for the modal to be visible
++    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'modal_modal')))
++
++    # Interact with each input element
++
++    input_class = 'input_0'
++    input_element = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="root"]/div/div[4]/div/div/div/div/form/div[1]/div[1]/span/input')))
++    # Debugging: Check if element is visible and enabled
++    input_element.send_keys(code)
++    submit_btn2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'form_submitBtn'))).click()
++
+Index: .idea/Trado_new.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Trado_new.iml b/.idea/Trado_new.iml
+--- a/.idea/Trado_new.iml	(revision bc273bee84925d5f1b069cd8ccc3fbbb9f4515db)
++++ b/.idea/Trado_new.iml	(date 1703498378777)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
